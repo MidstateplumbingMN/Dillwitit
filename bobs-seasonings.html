@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bob's Seasonings - Reorder</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .welcome-section {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            text-align: center;
+        }
+
+        .welcome-image {
+            max-width: 400px;
+            width: 100%;
+            height: auto;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        h1 {
+            color: #764ba2;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .tagline {
+            color: #666;
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+
+        .shop-section {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .section-title {
+            color: #764ba2;
+            font-size: 2em;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .product-card {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-radius: 15px;
+            padding: 25px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            border-color: #764ba2;
+        }
+
+        .product-card.selected {
+            border-color: #667eea;
+            background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
+        }
+
+        .product-name {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .product-price {
+            font-size: 1.5em;
+            color: #764ba2;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .quantity-control {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 15px;
+        }
+
+        .quantity-control button {
+            background: #667eea;
+            color: white;
+            border: none;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .quantity-control button:hover {
+            background: #764ba2;
+        }
+
+        .quantity-control input {
+            width: 60px;
+            text-align: center;
+            font-size: 1.2em;
+            border: 2px solid #667eea;
+            border-radius: 8px;
+            padding: 5px;
+        }
+
+        .order-summary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+        }
+
+        .order-summary h3 {
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .order-total {
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 2px solid white;
+            text-align: right;
+        }
+
+        .contact-form {
+            display: grid;
+            gap: 20px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            color: #333;
+            font-weight: bold;
+            margin-bottom: 8px;
+            font-size: 1.1em;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .payment-info {
+            background: #fff3cd;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 4px solid #ffc107;
+        }
+
+        .payment-info strong {
+            color: #856404;
+        }
+
+        .success-message {
+            background: #d4edda;
+            color: #155724;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            text-align: center;
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em;
+            }
+            
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Welcome Section -->
+        <div class="welcome-section">
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==" 
+                 alt="Welcome to Bob's Seasonings" 
+                 class="welcome-image"
+                 id="welcomeImage">
+            <h1>🌶️ Bob's Seasonings 🌶️</h1>
+            <p class="tagline">Premium Spices & Seasonings - Reorder Your Favorites!</p>
+        </div>
+
+        <!-- Shop Section -->
+        <div class="shop-section">
+            <h2 class="section-title">Select Your Products</h2>
+            
+            <div class="products-grid" id="productsGrid">
+                <!-- Products will be dynamically generated -->
+            </div>
+
+            <div id="orderSummaryContainer"></div>
+
+            <div class="payment-info">
+                <strong>💳 Payment Method:</strong> Venmo<br>
+                <em>Payment details will be provided after you submit your order.</em>
+            </div>
+
+            <form class="contact-form" id="orderForm">
+                <h3 style="text-align: center; color: #764ba2; margin-bottom: 20px;">Contact Information</h3>
+                
+                <div class="form-group">
+                    <label for="name">Full Name *</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email Address *</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Phone Number *</label>
+                    <input type="tel" id="phone" name="phone" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="venmo">Venmo Username *</label>
+                    <input type="text" id="venmo" name="venmo" placeholder="@yourvenmo" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="address">Shipping Address *</label>
+                    <textarea id="address" name="address" rows="3" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="notes">Order Notes (Optional)</label>
+                    <textarea id="notes" name="notes" rows="2"></textarea>
+                </div>
+
+                <button type="submit" class="submit-btn">Place Order 🛒</button>
+            </form>
+
+            <div class="success-message" id="successMessage">
+                ✅ Order submitted successfully! We'll email you the payment details shortly.
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Product catalog
+        const products = [
+            { id: 1, name: '"Dill with it" Dill Pickle Chicken Dry Rub (3 oz)', price: 6.00 }
+        ];
+
+        // Load the GitHub-hosted image
+        const welcomeImage = document.getElementById('welcomeImage');
+        welcomeImage.src = 'image.png';
+
+        // Cart object
+        const cart = {};
+
+        // Initialize products
+        function initProducts() {
+            const grid = document.getElementById('productsGrid');
+            
+            products.forEach(product => {
+                cart[product.id] = 0;
+                
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                card.id = `product-${product.id}`;
+                card.innerHTML = `
+                    <div class="product-name">${product.name}</div>
+                    <div class="product-price">$${product.price.toFixed(2)}</div>
+                    <div class="quantity-control">
+                        <button type="button" onclick="updateQuantity(${product.id}, -1)">-</button>
+                        <input type="number" id="qty-${product.id}" value="0" min="0" readonly>
+                        <button type="button" onclick="updateQuantity(${product.id}, 1)">+</button>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // Update quantity
+        function updateQuantity(productId, change) {
+            cart[productId] = Math.max(0, cart[productId] + change);
+            document.getElementById(`qty-${productId}`).value = cart[productId];
+            
+            const card = document.getElementById(`product-${productId}`);
+            if (cart[productId] > 0) {
+                card.classList.add('selected');
+            } else {
+                card.classList.remove('selected');
+            }
+            
+            updateOrderSummary();
+        }
+
+        // Update order summary
+        function updateOrderSummary() {
+            const container = document.getElementById('orderSummaryContainer');
+            const items = products.filter(p => cart[p.id] > 0);
+            
+            if (items.length === 0) {
+                container.innerHTML = '';
+                return;
+            }
+            
+            let total = 0;
+            let summaryHTML = '<div class="order-summary"><h3>Order Summary</h3>';
+            
+            items.forEach(product => {
+                const qty = cart[product.id];
+                const subtotal = qty * product.price;
+                total += subtotal;
+                
+                summaryHTML += `
+                    <div class="order-item">
+                        <span>${product.name} x ${qty}</span>
+                        <span>$${subtotal.toFixed(2)}</span>
+                    </div>
+                `;
+            });
+            
+            summaryHTML += `
+                <div class="order-total">Total: $${total.toFixed(2)}</div>
+            </div>`;
+            
+            container.innerHTML = summaryHTML;
+        }
+
+        // Handle form submission
+        document.getElementById('orderForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                venmo: document.getElementById('venmo').value,
+                address: document.getElementById('address').value,
+                notes: document.getElementById('notes').value,
+                order: []
+            };
+            
+            // Get order items
+            let total = 0;
+            products.forEach(product => {
+                if (cart[product.id] > 0) {
+                    const subtotal = cart[product.id] * product.price;
+                    total += subtotal;
+                    formData.order.push({
+                        product: product.name,
+                        quantity: cart[product.id],
+                        price: product.price,
+                        subtotal: subtotal
+                    });
+                }
+            });
+            
+            if (formData.order.length === 0) {
+                alert('Please select at least one product!');
+                return;
+            }
+            
+            formData.total = total;
+            
+            // Create email body
+            let emailBody = `NEW ORDER - Bob's Seasonings\n\n`;
+            emailBody += `CUSTOMER INFORMATION:\n`;
+            emailBody += `Name: ${formData.name}\n`;
+            emailBody += `Email: ${formData.email}\n`;
+            emailBody += `Phone: ${formData.phone}\n`;
+            emailBody += `Venmo: ${formData.venmo}\n`;
+            emailBody += `Address: ${formData.address}\n\n`;
+            emailBody += `ORDER DETAILS:\n`;
+            emailBody += `${'='.repeat(50)}\n`;
+            
+            formData.order.forEach(item => {
+                emailBody += `${item.product} x ${item.quantity} @ $${item.price.toFixed(2)} = $${item.subtotal.toFixed(2)}\n`;
+            });
+            
+            emailBody += `${'='.repeat(50)}\n`;
+            emailBody += `TOTAL: $${formData.total.toFixed(2)}\n\n`;
+            
+            if (formData.notes) {
+                emailBody += `NOTES: ${formData.notes}\n\n`;
+            }
+            
+            emailBody += `Payment via Venmo to be sent to: ${formData.venmo}\n`;
+            
+            // Create mailto link
+            const subject = encodeURIComponent(`New Order from ${formData.name} - $${formData.total.toFixed(2)}`);
+            const body = encodeURIComponent(emailBody);
+            const mailtoLink = `mailto:${formData.email}?subject=${subject}&body=${body}`;
+            
+            // Open email client
+            window.location.href = mailtoLink;
+            
+            // Show success message
+            document.getElementById('successMessage').style.display = 'block';
+            
+            // Reset form after short delay
+            setTimeout(() => {
+                document.getElementById('orderForm').reset();
+                Object.keys(cart).forEach(key => cart[key] = 0);
+                document.querySelectorAll('.product-card').forEach(card => card.classList.remove('selected'));
+                document.querySelectorAll('input[type="number"]').forEach(input => input.value = 0);
+                updateOrderSummary();
+                document.getElementById('successMessage').style.display = 'none';
+            }, 3000);
+        });
+
+        // Initialize on page load
+        initProducts();
+    </script>
+</body>
+</html>
