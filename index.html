@@ -426,16 +426,6 @@
             .contact-form {
                 padding: 0;
             }
-
-            /* Stack payment info on mobile */
-            .payment-info > div {
-                grid-template-columns: 1fr !important;
-                text-align: center;
-            }
-
-            .payment-info img {
-                margin: 15px auto 0 auto;
-            }
         }
     </style>
 </head>
@@ -507,35 +497,35 @@
                 <p style="color: #666; margin-bottom: 15px;">Get your favorite seasoning delivered automatically and save!</p>
                 
                 <div class="subscription-options" style="display: grid; gap: 15px;">
-                    <label class="subscription-radio" style="display: flex; align-items: center; padding: 15px; background: white; border-radius: 10px; cursor: pointer; border: 2px solid #ddd;">
-                        <input type="radio" name="subscription" value="one-time" checked style="margin-right: 12px; width: 20px; height: 20px; cursor: pointer;">
-                        <div>
-                            <strong style="color: #333;">One-Time Purchase</strong>
-                            <p style="color: #666; margin: 5px 0 0 0; font-size: 0.9em;">Standard order - no recurring charges</p>
+                    <label class="subscription-radio" style="display: flex; align-items: flex-start; padding: 18px; background: white; border-radius: 10px; cursor: pointer; border: 2px solid #ddd;">
+                        <input type="radio" name="subscription" value="one-time" checked style="margin-right: 15px; margin-top: 3px; width: 22px; height: 22px; cursor: pointer; flex-shrink: 0;">
+                        <div style="flex: 1;">
+                            <strong style="color: #333; font-size: 1.05em; line-height: 1.4;">One-Time Purchase</strong>
+                            <p style="color: #666; margin: 8px 0 0 0; font-size: 0.95em; line-height: 1.5;">Standard order - no recurring charges</p>
                         </div>
                     </label>
 
-                    <label class="subscription-radio" style="display: flex; align-items: center; padding: 15px; background: white; border-radius: 10px; cursor: pointer; border: 2px solid #ddd;">
-                        <input type="radio" name="subscription" value="monthly" style="margin-right: 12px; width: 20px; height: 20px; cursor: pointer;">
-                        <div>
-                            <strong style="color: #2a9d8f;">Monthly Subscription - Save 10%</strong>
-                            <p style="color: #666; margin: 5px 0 0 0; font-size: 0.9em;">Delivered every month • Cancel anytime • Only $5.40/bottle</p>
+                    <label class="subscription-radio" style="display: flex; align-items: flex-start; padding: 18px; background: white; border-radius: 10px; cursor: pointer; border: 2px solid #ddd;">
+                        <input type="radio" name="subscription" value="monthly" style="margin-right: 15px; margin-top: 3px; width: 22px; height: 22px; cursor: pointer; flex-shrink: 0;">
+                        <div style="flex: 1;">
+                            <strong style="color: #2a9d8f; font-size: 1.05em; line-height: 1.4;">Monthly Subscription - Save 10%</strong>
+                            <p style="color: #666; margin: 8px 0 0 0; font-size: 0.95em; line-height: 1.5;">Delivered every month • Cancel anytime • Only $5.40/bottle</p>
                         </div>
                     </label>
 
-                    <label class="subscription-radio" style="display: flex; align-items: center; padding: 15px; background: white; border-radius: 10px; cursor: pointer; border: 2px solid #ddd;">
-                        <input type="radio" name="subscription" value="bimonthly" style="margin-right: 12px; width: 20px; height: 20px; cursor: pointer;">
-                        <div>
-                            <strong style="color: #2a9d8f;">Every 2 Months - Save 5%</strong>
-                            <p style="color: #666; margin: 5px 0 0 0; font-size: 0.9em;">Delivered every 2 months • Cancel anytime • Only $5.70/bottle</p>
+                    <label class="subscription-radio" style="display: flex; align-items: flex-start; padding: 18px; background: white; border-radius: 10px; cursor: pointer; border: 2px solid #ddd;">
+                        <input type="radio" name="subscription" value="bimonthly" style="margin-right: 15px; margin-top: 3px; width: 22px; height: 22px; cursor: pointer; flex-shrink: 0;">
+                        <div style="flex: 1;">
+                            <strong style="color: #2a9d8f; font-size: 1.05em; line-height: 1.4;">Every 2 Months - Save 5%</strong>
+                            <p style="color: #666; margin: 8px 0 0 0; font-size: 0.95em; line-height: 1.5;">Delivered every 2 months • Cancel anytime • Only $5.70/bottle</p>
                         </div>
                     </label>
 
-                    <label class="subscription-radio" style="display: flex; align-items: center; padding: 15px; background: white; border-radius: 10px; cursor: pointer; border: 2px solid #ddd;">
-                        <input type="radio" name="subscription" value="quarterly" style="margin-right: 12px; width: 20px; height: 20px; cursor: pointer;">
-                        <div>
-                            <strong style="color: #2a9d8f;">Quarterly (3 Months) - Save 5%</strong>
-                            <p style="color: #666; margin: 5px 0 0 0; font-size: 0.9em;">Delivered every 3 months • Cancel anytime • Only $5.70/bottle</p>
+                    <label class="subscription-radio" style="display: flex; align-items: flex-start; padding: 18px; background: white; border-radius: 10px; cursor: pointer; border: 2px solid #ddd;">
+                        <input type="radio" name="subscription" value="quarterly" style="margin-right: 15px; margin-top: 3px; width: 22px; height: 22px; cursor: pointer; flex-shrink: 0;">
+                        <div style="flex: 1;">
+                            <strong style="color: #2a9d8f; font-size: 1.05em; line-height: 1.4;">Quarterly (3 Months) - Save 5%</strong>
+                            <p style="color: #666; margin: 8px 0 0 0; font-size: 0.95em; line-height: 1.5;">Delivered every 3 months • Cancel anytime • Only $5.70/bottle</p>
                         </div>
                     </label>
                 </div>
@@ -548,23 +538,22 @@
             </div>
 
             <div class="payment-info">
-                <div style="display: grid; grid-template-columns: 1fr auto; gap: 20px; align-items: center;">
+                <div style="display: grid; grid-template-columns: 1fr; gap: 20px; align-items: center; text-align: center;">
                     <div>
-                        <strong style="display: block; margin-bottom: 10px; font-size: 1.1em;">💳 Payment Method: Venmo</strong>
+                        <strong style="display: block; margin-bottom: 10px; font-size: 1.2em;">💳 Payment Method: Venmo</strong>
                         <p style="margin: 5px 0; color: #856404;">
                             <strong>Venmo:</strong> @robertdanaher
                         </p>
-                        <p style="margin: 5px 0 0 0; color: #856404; font-size: 0.9em;">
+                        <p style="margin: 5px 0 0 0; color: #856404; font-size: 0.95em;">
                             <em>After submitting your order, please send payment via Venmo.</em>
-                        </p>
-                        <p style="margin: 10px 0 0 0; color: #856404; font-size: 0.9em;">
-                            👉 Scan the QR code to pay instantly!
                         </p>
                     </div>
                     <div style="text-align: center;">
+                        <p style="margin: 0 0 10px 0; color: #856404; font-size: 1em; font-weight: bold;">
+                            👇 Scan to Pay Instantly 👇
+                        </p>
                         <img src="venmo.jpg" alt="Venmo QR Code - @robertdanaher" 
-                             style="max-width: 150px; width: 100%; height: auto; border-radius: 10px; border: 3px solid #2a9d8f; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
-                        <p style="margin-top: 8px; font-size: 0.85em; color: #666; font-weight: bold;">Scan to Pay</p>
+                             style="max-width: 220px; width: 100%; height: auto; border-radius: 15px; border: 4px solid #2a9d8f; box-shadow: 0 6px 20px rgba(0,0,0,0.2);">
                     </div>
                 </div>
             </div>
